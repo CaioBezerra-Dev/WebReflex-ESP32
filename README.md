@@ -50,27 +50,34 @@ Antes de enviar o código à ESP32, edite suas credenciais Wi-Fi no sketch:
 ```cpp
 const char* ssid = "NOME_DA_REDE";
 const char* password = "SENHA_DA_REDE";
+```
 
 🌍 Acesso Remoto com Cloudflare Tunnel (sem login)
 Quer acessar o jogo de qualquer lugar? Use o Cloudflare Tunnel — rápido, gratuito e sem precisar de domínio. No computador da mesma rede execute:
 
-bash
-Copiar código
+```cpp
 # 1️⃣ Apague qualquer configuração antiga (opcional)
 rm -rf ~/.cloudflared
+```
 
+```cpp
 # 2️⃣ Crie um diretório novo e entre nele
 mkdir -p ~/.cloudflared && cd ~/.cloudflared
+```
 
+```cpp
 # 3️⃣ Inicie o túnel rápido (gera link .trycloudflare.com)
 cloudflared tunnel --url http://<IP.ESP32>
+```
 
 Após alguns segundos aparecerá algo como:
 
 Exemplo:
+```cpp
 Your quick Tunnel has been created! Visit it at:
 https://example-tunnel.trycloudflare.com
 ➡️ Esse é o link público para acessar sua ESP32 enquanto o comando estiver rodando no terminal.
+```
 
 🕹️ Como Jogar
 Conecte-se à rede Wi-Fi configurada.
@@ -100,4 +107,4 @@ Versão: 1.0
 
 “Treine seus reflexos com a força da ESP32!” ⚡
 
-<p align="center">Feito com ❤️ e <b>muita curiosidade IoT</b> 🧠</p> ```
+<p align="center">Feito com ❤️ e <b>muita curiosidade IoT</b> 🧠</p> 
