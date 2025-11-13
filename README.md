@@ -79,7 +79,10 @@ https://example-tunnel.trycloudflare.com
 ➡️ Esse é o link público para acessar sua ESP32 enquanto o comando estiver rodando no terminal.
 ```
 
-🕹️ Como Jogar
+---
+
+## 🕹️ Como Jogar
+
 Conecte-se à rede Wi-Fi configurada.
 
 Acesse o IP local ou o link do túnel Cloudflare.
@@ -92,7 +95,10 @@ Pressione o botão o mais rápido possível!
 
 Veja seu tempo e tente bater o recorde.
 
-🧠 Tecnologias Utilizadas
+---
+
+## 🧠 Tecnologias Utilizadas
+
 ⚙️ C++ (Arduino Core)
 
 📡 WiFi.h e WebServer.h
@@ -101,7 +107,8 @@ Veja seu tempo e tente bater o recorde.
 
 💡 HTML / JavaScript (frontend)
 
-🧪 Créditos
+## 🧪 Créditos
+
 Autor: Caio Breno de Souza Bezerra
 Versão: 1.0
 
