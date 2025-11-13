@@ -1,36 +1,39 @@
-<h1 align="center">⚡ WebReflex-ESP32 — Jogo de Reação com ESP32 🌐</h1>
+# ⚡ WebReflex-ESP32 — Jogo de Reação com ESP32 🌐
 
-<p align="center">
-Um mini jogo de <strong>reflexo</strong> para <strong>ESP32</strong> com interface web e acesso remoto via <strong>Cloudflare Tunnel</strong>.  
+Um mini jogo de reflexo para ESP32 com interface web e acesso remoto via Cloudflare Tunnel.  
 Desafie seus reflexos e compartilhe o link com seus amigos! 🏆
-</p>
 
 ---
 
-## 📦 Instalação rápida
+## 📦 Instalação Rápida
 
 Siga estes passos mínimos para rodar o projeto localmente e expor via Cloudflare (modo rápido, sem login).
 
-1. Edite o sketch e configure sua rede Wi-Fi:
+### 1️⃣ Configure sua rede Wi-Fi
+
+No código, edite as linhas:
+
 ```cpp
 const char* ssid = "NOME_DA_REDE";
 const char* password = "SENHA_DA_REDE";
-Abra o projeto no Arduino IDE, selecione a placa ESP32 correta e faça o upload.
+Depois, abra o projeto no Arduino IDE, selecione a placa ESP32 correta e faça o upload.
 
-Abra o Monitor Serial em 115200 baud para ver o IP atribuído:
+2️⃣ Verifique o IP no Monitor Serial
+Abra o monitor serial em 115200 baud e veja algo como:
 
-arduino
+bash
 Copiar código
 Conectando-se a FRAN...
 WiFi conectado!
 IP: 192.168.1.27
 Servidor Web iniciado com sucesso.
-Acesse localmente:
+Acesse localmente no navegador:
 
 cpp
 Copiar código
 http://192.168.1.27
-(Opcional) Para acesso remoto rápido, no computador da mesma rede instale cloudflared e rode:
+3️⃣ 🌍 Acesso remoto rápido (sem login)
+No computador da mesma rede, instale o cloudflared e execute:
 
 bash
 Copiar código
@@ -42,13 +45,13 @@ mkdir -p ~/.cloudflared && cd ~/.cloudflared
 
 # Inicie túnel rápido (gera link .trycloudflare.com)
 cloudflared tunnel --url http://192.168.1.27
-A saída mostrará algo como:
+Após alguns segundos, aparecerá algo como:
 
-nginx
+bash
 Copiar código
 Your quick Tunnel has been created! Visit it at:
 https://example-tunnel.trycloudflare.com
-O link funciona enquanto o processo estiver rodando no terminal.
+➡️ Esse é o link público temporário para acessar sua ESP32 enquanto o comando estiver rodando.
 
 🚀 Funcionalidades
 Interface web responsiva (HTML + JS)
@@ -61,53 +64,51 @@ LED vermelho (aguarde) / LED verde (reaja)
 
 Acesso remoto opcional via Cloudflare Tunnel
 
-🧩 Materiais necessários
-ESP32 (DevKit)
-
-LED verde
-
-LED vermelho
-
-Botão pousador
-
-Resistores apropriados (ex.: 220Ω para LEDs)
-
-Jumpers e protoboard
-
-🔌 Conexões (padrão no código)
-Componente	Pino ESP32
-Botão	D5 (GPIO 5)
-LED Verde	D23 (GPIO 23)
-LED Vermelho	D4 (GPIO 4)
+🧩 Materiais Necessários
+Componente	Quantidade	Observação
+ESP32 DevKit	1	—
+LED Verde	1	Pino D23 (GPIO 23)
+LED Vermelho	1	Pino D4 (GPIO 4)
+Botão Pousador	1	Pino D5 (GPIO 5)
+Resistores	2	220Ω (para LEDs)
+Jumpers	—	—
+Protoboard	—	—
 
 Ajuste os pinos no código se sua montagem for diferente.
 
-💻 Como usar
-Conecte a ESP32 à energia e faça upload do sketch via Arduino IDE.
+💻 Como Jogar
+Conecte a ESP32 à energia e envie o sketch.
 
-Abra o monitor serial (115200) e aguarde conexão Wi-Fi.
+Abra o monitor serial (115200) e aguarde a conexão Wi-Fi.
 
-Abra o IP mostrado no navegador.
+Acesse o IP mostrado (ou o link do túnel).
 
-Na página web: digite seu nome → clique INICIAR JOGO → espere o LED verde → pressione o botão o mais rápido possível.
+Digite seu nome → clique em INICIAR JOGO.
 
-Seu tempo será exibido e salvo no ranking.
+Espere o LED verde → pressione o botão o mais rápido possível!
+
+Veja seu tempo e tente bater o recorde.
 
 ⚠️ Observações sobre o Cloudflare Tunnel
-O modo “quick tunnel” (cloudflared tunnel --url ...) gera um subdomínio .trycloudflare.com temporário. Ele funciona sem autenticação, mas o link muda se você reiniciar o processo.
+O modo “quick tunnel” (cloudflared tunnel --url ...) cria um subdomínio temporário *.trycloudflare.com.
+Ele funciona sem login, mas o link muda toda vez que você reinicia o comando.
 
-Se quiser link fixo e mais controle, é possível criar um túnel nomeado autenticado via conta Cloudflare (requer cloudflared login e criação de túnel na conta).
+Se quiser um link fixo e persistente, é possível criar um túnel autenticado na sua conta Cloudflare com:
 
-🧪 Tecnologias
-C++ (Arduino Core para ESP32)
+bash
+Copiar código
+cloudflared login
+cloudflared tunnel create nome-do-tunel
+🧪 Tecnologias Utilizadas
+⚙️ C++ (Arduino Core para ESP32)
 
-WiFi.h, WebServer.h
+📡 WiFi.h, WebServer.h
 
-HTML / CSS / JavaScript para frontend
+💡 HTML / CSS / JavaScript (frontend)
 
-Cloudflare Tunnel (opcional)
+🌩️ Cloudflare Tunnel (opcional)
 
-📸 Sugestão: demonstrativos
+📸 Sugestão: Demonstrações
 Inclua imagens/screenshots com:
 
 Tela do jogo no navegador
