@@ -50,19 +50,7 @@ Antes de enviar o código à ESP32, edite suas credenciais Wi-Fi no sketch:
 ```cpp
 const char* ssid = "NOME_DA_REDE";
 const char* password = "SENHA_DA_REDE";
-Após o upload, abra o Monitor Serial (115200 baud) — você verá algo como:
 
-arduino
-Copiar código
-Conectando-se a FRAN...
-WiFi conectado!
-IP: 192.168.1.27
-Servidor Web iniciado com sucesso.
-Agora é só acessar no navegador:
-
-cpp
-Copiar código
-http://192.168.1.27
 🌍 Acesso Remoto com Cloudflare Tunnel (sem login)
 Quer acessar o jogo de qualquer lugar? Use o Cloudflare Tunnel — rápido, gratuito e sem precisar de domínio. No computador da mesma rede execute:
 
@@ -75,11 +63,11 @@ rm -rf ~/.cloudflared
 mkdir -p ~/.cloudflared && cd ~/.cloudflared
 
 # 3️⃣ Inicie o túnel rápido (gera link .trycloudflare.com)
-cloudflared tunnel --url http://192.168.1.27
+cloudflared tunnel --url http://<IP.ESP32>
+
 Após alguns segundos aparecerá algo como:
 
-nginx
-Copiar código
+Exemplo:
 Your quick Tunnel has been created! Visit it at:
 https://example-tunnel.trycloudflare.com
 ➡️ Esse é o link público para acessar sua ESP32 enquanto o comando estiver rodando no terminal.
@@ -97,17 +85,6 @@ Pressione o botão o mais rápido possível!
 
 Veja seu tempo e tente bater o recorde.
 
-📸 Demonstração
-(adicione aqui prints da interface ou fotos da montagem)
-
-Exemplos sugeridos:
-
-Tela inicial do jogo
-
-Ranking em tempo real
-
-LEDs e botão conectados na ESP32
-
 🧠 Tecnologias Utilizadas
 ⚙️ C++ (Arduino Core)
 
@@ -120,7 +97,6 @@ LEDs e botão conectados na ESP32
 🧪 Créditos
 Autor: Caio Breno de Souza Bezerra
 Versão: 1.0
-Licença: MIT
 
 “Treine seus reflexos com a força da ESP32!” ⚡
 
