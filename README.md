@@ -1,56 +1,23 @@
-<h1 align="center">⚡ Jogo de Reação com ESP32 + Servidor Web 🌐</h1>
+<h1 align="center">⚡ WebReflex-ESP32 — Jogo de Reação com ESP32 🌐</h1>
 
 <p align="center">
-Um mini jogo de <b>reflexo</b> desenvolvido para <b>ESP32</b>, com interface web e acesso remoto via <b>Cloudflare Tunnel</b>.
-<br>
-Desafie seus reflexos e veja quem é o mais rápido da turma! 🏆
+Um mini jogo de <strong>reflexo</strong> para <strong>ESP32</strong> com interface web e acesso remoto via <strong>Cloudflare Tunnel</strong>.  
+Desafie seus reflexos e compartilhe o link com seus amigos! 🏆
 </p>
 
 ---
 
-## 🚀 Funcionalidades
+## 📦 Instalação rápida
 
-✨ Interface web responsiva (HTML + JS)  
-🧠 Cálculo preciso do tempo de reação  
-🏅 Ranking automático de melhores tempos  
-🔴 LED vermelho → aguarde  
-🟢 LED verde → reaja!  
-⚙️ Servidor HTTP embarcado no ESP32  
-☁️ Acesso remoto opcional via Cloudflare Tunnel  
+Siga estes passos mínimos para rodar o projeto localmente e expor via Cloudflare (modo rápido, sem login).
 
----
-
-## 🧩 Materiais Necessários
-
-| Componente     | Quantidade | Observação         |
-|----------------|-------------|--------------------|
-| ESP32          | 1           | Modelo DevKit V1   |
-| LED vermelho   | 1           | Indicador de espera|
-| LED verde      | 1           | Indicador de reação|
-| Botão (push)   | 1           | Entrada do jogador |
-| Jumpers        | —           | Conexões diversas  |
-| Protoboard     | —           | Montagem rápida    |
-
----
-
-## 🔌 Esquema de Conexão
-
-| Componente | Pino ESP32 |
-|-------------|------------|
-| Botão       | D5         |
-| LED Verde   | D23        |
-| LED Vermelho| D4         |
-
----
-
-## 💻 Configuração do Código
-
-Antes de enviar o código à ESP32, edite suas credenciais Wi-Fi:
-
+1. Edite o sketch e configure sua rede Wi-Fi:
 ```cpp
 const char* ssid = "NOME_DA_REDE";
 const char* password = "SENHA_DA_REDE";
-Após o upload, abra o Monitor Serial — você verá algo como:
+Abra o projeto no Arduino IDE, selecione a placa ESP32 correta e faça o upload.
+
+Abra o Monitor Serial em 115200 baud para ver o IP atribuído:
 
 arduino
 Copiar código
@@ -58,73 +25,102 @@ Conectando-se a FRAN...
 WiFi conectado!
 IP: 192.168.1.27
 Servidor Web iniciado com sucesso.
-Agora é só acessar no navegador:
+Acesse localmente:
 
 cpp
 Copiar código
 http://192.168.1.27
-🌍 Acesso Remoto com Cloudflare Tunnel (sem login)
-Quer acessar o jogo de qualquer lugar?
-Use o Cloudflare Tunnel — rápido, gratuito e sem precisar de domínio!
-
-Execute estas três linhas no terminal Linux (ou WSL):
+(Opcional) Para acesso remoto rápido, no computador da mesma rede instale cloudflared e rode:
 
 bash
 Copiar código
-# 1️⃣ Apague qualquer configuração antiga:
+# Apague configuração antiga (caso exista)
 rm -rf ~/.cloudflared
 
-# 2️⃣ Crie um diretório novo e entre nele:
+# Crie pasta de trabalho
 mkdir -p ~/.cloudflared && cd ~/.cloudflared
 
-# 3️⃣ Inicie o túnel sem login (gera link .trycloudflare.com)
+# Inicie túnel rápido (gera link .trycloudflare.com)
 cloudflared tunnel --url http://192.168.1.27
-Após alguns segundos, aparecerá algo como:
+A saída mostrará algo como:
 
 nginx
 Copiar código
 Your quick Tunnel has been created! Visit it at:
 https://example-tunnel.trycloudflare.com
-➡️ Esse é o link público para acessar sua ESP32 enquanto o comando estiver em execução.
+O link funciona enquanto o processo estiver rodando no terminal.
 
-🕹️ Como Jogar
-Conecte-se à rede Wi-Fi configurada.
+🚀 Funcionalidades
+Interface web responsiva (HTML + JS)
 
-Acesse o IP local ou o link do túnel Cloudflare.
+Medição precisa do tempo de reação (ms)
 
-Digite seu nome e clique em INICIAR JOGO.
+Ranking com os 5 melhores tempos
 
-Espere o LED verde acender.
+LED vermelho (aguarde) / LED verde (reaja)
 
-Pressione o botão o mais rápido possível!
+Acesso remoto opcional via Cloudflare Tunnel
 
-Veja seu tempo e tente bater o recorde.
+🧩 Materiais necessários
+ESP32 (DevKit)
 
-📸 Demonstração
-(adicione aqui prints da interface ou fotos da montagem)
-Exemplo:
+LED verde
 
-Tela inicial do jogo
+LED vermelho
 
-Ranking em tempo real
+Botão pousador
 
-LEDs e botão conectados na ESP32
+Resistores apropriados (ex.: 220Ω para LEDs)
 
-🧠 Tecnologias Utilizadas
-⚙️ C++ (Arduino Core)
+Jumpers e protoboard
 
-📡 WiFi.h e WebServer.h
+🔌 Conexões (padrão no código)
+Componente	Pino ESP32
+Botão	D5 (GPIO 5)
+LED Verde	D23 (GPIO 23)
+LED Vermelho	D4 (GPIO 4)
 
-🌩️ Cloudflare Tunnel para acesso remoto seguro
+Ajuste os pinos no código se sua montagem for diferente.
 
-💡 HTML / JavaScript para interface web
+💻 Como usar
+Conecte a ESP32 à energia e faça upload do sketch via Arduino IDE.
 
-🧪 Créditos
+Abra o monitor serial (115200) e aguarde conexão Wi-Fi.
+
+Abra o IP mostrado no navegador.
+
+Na página web: digite seu nome → clique INICIAR JOGO → espere o LED verde → pressione o botão o mais rápido possível.
+
+Seu tempo será exibido e salvo no ranking.
+
+⚠️ Observações sobre o Cloudflare Tunnel
+O modo “quick tunnel” (cloudflared tunnel --url ...) gera um subdomínio .trycloudflare.com temporário. Ele funciona sem autenticação, mas o link muda se você reiniciar o processo.
+
+Se quiser link fixo e mais controle, é possível criar um túnel nomeado autenticado via conta Cloudflare (requer cloudflared login e criação de túnel na conta).
+
+🧪 Tecnologias
+C++ (Arduino Core para ESP32)
+
+WiFi.h, WebServer.h
+
+HTML / CSS / JavaScript para frontend
+
+Cloudflare Tunnel (opcional)
+
+📸 Sugestão: demonstrativos
+Inclua imagens/screenshots com:
+
+Tela do jogo no navegador
+
+Montagem do circuito
+
+Monitor serial mostrando o IP
+
+🧾 Licença & Créditos
 Autor: Caio Breno de Souza Bezerra
 Versão: 1.0
 Licença: MIT
 
 “Treine seus reflexos com a força da ESP32!” ⚡
 
-<p align="center"> Feito com ❤️ e <b>muita curiosidade IoT</b> 🧠<br> </p> ```
-Quer que eu adicione uma seção “Instalação rápida” com comandos diretos (Arduino IDE + dependências + execução do túnel)? Fica ótimo no topo do README.
+<p align="center"> Feito com ❤️ e muita curiosidade IoT 🧠 </p> ```
