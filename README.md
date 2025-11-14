@@ -1,26 +1,26 @@
-<h1 align="center">⚡ Jogo de Reação com ESP32 + Servidor Web 🌐</h1>
+<h1 align="center"> Jogo de Reação com ESP32 + Servidor Web </h1>
 
 <p align="center">
 Um mini jogo de <b>reflexo</b> desenvolvido para <b>ESP32</b>, com interface web e acesso remoto via <b>Cloudflare Tunnel</b>.
 <br>
-Desafie seus reflexos e veja quem é o mais rápido da turma! 🏆
+Desafie seus reflexos e veja quem é o mais rápido da turma! 
 </p>
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
-✨ Interface web responsiva (HTML + JS)  
-🧠 Cálculo preciso do tempo de reação  
-🏅 Ranking automático de melhores tempos  
-🔴 LED vermelho → aguarde  
-🟢 LED verde → reaja!  
-⚙️ Servidor HTTP embarcado no ESP32  
-☁️ Acesso remoto opcional via Cloudflare Tunnel  
+- Interface web responsiva (HTML + JS)  
+- Cálculo preciso do tempo de reação  
+- Ranking automático de melhores tempos  
+- LED vermelho → aguarde  
+- LED verde → reaja!  
+- Servidor HTTP embarcado no ESP32  
+- Acesso remoto opcional via Cloudflare Tunnel  
 
 ---
 
-## 🧩 Materiais Necessários
+## Materiais Necessários
 
 | Componente     | Quantidade | Observação         |
 |----------------|------------:|--------------------|
@@ -33,7 +33,7 @@ Desafie seus reflexos e veja quem é o mais rápido da turma! 🏆
 
 ---
 
-## 🔌 Esquema de Conexão
+## Esquema de Conexão
 
 | Componente    | Pino ESP32 |
 |---------------|------------:|
@@ -43,7 +43,7 @@ Desafie seus reflexos e veja quem é o mais rápido da turma! 🏆
 
 ---
 
-## 💻 Configuração do Código
+## Configuração do Código
 
 Antes de enviar o código à ESP32, edite suas credenciais Wi-Fi no sketch:
 
@@ -52,36 +52,34 @@ const char* ssid = "NOME_DA_REDE";
 const char* password = "SENHA_DA_REDE";
 ```
 
-🌍 Acesso Remoto com Cloudflare Tunnel (sem login)
+Acesso Remoto com Cloudflare Tunnel (sem login)
 Quer acessar o jogo de qualquer lugar? Use o Cloudflare Tunnel — rápido, gratuito e sem precisar de domínio. No computador da mesma rede execute:
 
-```cpp
 # 1️⃣ Apague qualquer configuração antiga (opcional)
+```cpp
 rm -rf ~/.cloudflared
 ```
 
-```cpp
 # 2️⃣ Crie um diretório novo e entre nele
+```cpp
 mkdir -p ~/.cloudflared && cd ~/.cloudflared
 ```
 
-```cpp
 # 3️⃣ Inicie o túnel rápido (gera link .trycloudflare.com)
+```cpp
 cloudflared tunnel --url http://<IP.ESP32>
 ```
 
 Após alguns segundos aparecerá algo como:
 
 Exemplo:
-```cpp
 Your quick Tunnel has been created! Visit it at:
 https://example-tunnel.trycloudflare.com
 ➡️ Esse é o link público para acessar sua ESP32 enquanto o comando estiver rodando no terminal.
-```
 
 ---
 
-## 🕹️ Como Jogar
+## Como Jogar
 
 Conecte-se à rede Wi-Fi configurada.
 
@@ -97,17 +95,17 @@ Veja seu tempo e tente bater o recorde.
 
 ---
 
-## 🧠 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-⚙️ C++ (Arduino Core)
+- C++ (Arduino Core)
 
-📡 WiFi.h e WebServer.h
+- WiFi.h e WebServer.h
 
-🌩️ Cloudflare Tunnel (opcional)
+- Cloudflare Tunnel (opcional)
 
-💡 HTML / JavaScript (frontend)
+- HTML / JavaScript (frontend)
 
-## 🧪 Créditos
+## Créditos
 
 Autor: Caio Breno de Souza Bezerra
 Versão: 1.0

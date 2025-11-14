@@ -1,25 +1,24 @@
 #include <WiFi.h>
 #include <WebServer.h>
 
-// ===================== CONFIGURAÇÃO WI-FI =====================
-// *** Mantenha Wokwi-GUEST para a simulação ***
+// CONFIGURAÇÃO WI-FI 
 const char* ssid = ""; 
 const char* password = ""; 
-WebServer server(80); // Servidor HTTP na porta padrão
+WebServer server(80); 
 
-// ===================== PINOS =====================
+// PINOS 
 const int buttonPin = 5;
 const int ledVerde = 23;
 const int ledVermelho = 4;
 
-// ===================== VARIÁVEIS DO JOGO =====================
+// VARIÁVEIS DO JOGO
 unsigned long startTime = 0;
-unsigned long reactionTime = 0; // Armazena o tempo de reação em milissegundos
+unsigned long reactionTime = 0;
 bool esperandoReacao = false;
 unsigned long lastButtonTime = 0;
-const unsigned long debounceDelay = 20000; // 20 ms em microssegundos (20000)
+const unsigned long debounceDelay = 20000; 
 
-// ===================== VARIÁVEIS DO SERVIDOR E RANKING =====================
+// VARIÁVEIS DO SERVIDOR E RANKING 
 #define MAX_RANKING 5
 String nomesRanking[MAX_RANKING];
 long temposRanking[MAX_RANKING];
@@ -28,7 +27,7 @@ int rankingCount = 0;
 bool jogoIniciadoPorWeb = false; // Sinaliza que a rodada foi solicitada pelo navegador
 String jogadorAtual = ""; // Armazena o nome do jogador da rodada atual
 
-// ===================== FUNÇÕES DE RANKING =====================
+// FUNÇÕES DE RANKING 
 
 /**
  * @brief Adiciona o novo resultado na lista e reordena o ranking.
@@ -46,7 +45,7 @@ void updateRankingList(String nome, long tempo) {
         i = MAX_RANKING - 1;
     }
 
-    // 2. Desloca os elementos maiores para baixo (para abrir espaço)
+    // 2. Desloca os elementos maiores para baixo
     while (i > 0 && temposRanking[i-1] > tempo) {
         temposRanking[i] = temposRanking[i-1];
         nomesRanking[i] = nomesRanking[i-1];
@@ -58,7 +57,7 @@ void updateRankingList(String nome, long tempo) {
     nomesRanking[i] = nome;
 }
 
-// ===================== FUNÇÕES DO SERVIDOR WEB =====================
+// FUNÇÕES DO SERVIDOR WEB 
 
 /**
  * @brief Devolve a página principal HTML/JS.
@@ -233,7 +232,7 @@ void handleStatus() {
     server.send(200, "application/json", statusJson);
 }
 
-// ===================== FUNÇÕES ARDUINO PADRÃO =====================
+// FUNÇÕES ARDUINO PADRÃO 
 
 void setup() {
   pinMode(buttonPin, INPUT_PULLUP);
@@ -247,12 +246,12 @@ void setup() {
   digitalWrite(ledVermelho, HIGH); 
   randomSeed(analogRead(0));
 
-  // === Conexão Wi-Fi ===
+  // Conexão Wi-Fi
   Serial.print("Conectando-se a ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
   
-  // Imprime pontos enquanto tenta conectar (com limite de 20 tentativas)
+  // Imprime pontos enquanto tenta conectar 
   int tentativas = 0;
   while (WiFi.status() != WL_CONNECTED && tentativas < 20) { 
     delay(500);
@@ -260,20 +259,19 @@ void setup() {
     tentativas++;
   }
 
-  // A MUDANÇA ESTÁ AQUI: Inicialização do servidor apenas se a conexão for bem-sucedida.
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("\nWiFi conectado!");
     Serial.print("IP: ");
     Serial.println(WiFi.localIP());
 
-    // === Configuração e Inicialização do Servidor Web ===
+    // Configuração e Inicialização do Servidor Web
     server.on("/", HTTP_GET, handleRoot);      
     server.on("/iniciar", HTTP_POST, handleIniciar);
     server.on("/ranking", HTTP_GET, handleRanking);
     server.on("/status", HTTP_GET, handleStatus);
 
     server.begin(); 
-    Serial.println("Servidor Web iniciado com sucesso. Procure o link do IoT Gateway!"); // Mensagem de sucesso revisada
+    Serial.println("Servidor Web iniciado com sucesso. Procure o link do IoT Gateway!"); 
     
   } else {
     Serial.println("\nFalha na conexao. Verifique o SSID e a senha.");
@@ -286,7 +284,7 @@ void setup() {
 void loop() {
   // Apenas lide com clientes se o WiFi estiver conectado.
   if (WiFi.status() == WL_CONNECTED) {
-    server.handleClient(); // Essencial: processa requisições HTTP do navegador
+    server.handleClient(); 
   }
 
   static unsigned long waitStart = 0;
@@ -304,7 +302,7 @@ void loop() {
     startTime = 0;
   }
 
-  // 2. Acende Verde após tempo aleatório (Lógica Não Bloqueante)
+  // 2. Acende Verde após tempo aleatório 
   if (esperandoReacao && micros() - waitStart >= waitDelay && startTime == 0) {
     digitalWrite(ledVermelho, LOW);
     digitalWrite(ledVerde, HIGH);
@@ -312,11 +310,11 @@ void loop() {
     Serial.println("LED VERDE ACESO! Reaja!");
   }
 
-  // 3. Lê o botão e finaliza a rodada (Alta Precisão)
+  // 3. Lê o botão e finaliza a rodada 
   if (startTime > 0) {
     int buttonState = digitalRead(buttonPin);
     
-    // Verifica se o botão foi pressionado (LOW, por causa do PULLUP) e se passou do debounce
+    // Verifica se o botão foi pressionado 
     if (buttonState == LOW && (micros() - lastButtonTime) > debounceDelay) {
       lastButtonTime = micros();
       
